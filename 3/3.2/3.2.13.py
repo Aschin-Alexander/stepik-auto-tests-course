@@ -3,17 +3,14 @@ import time
 import unittest
 from selenium.webdriver.common.by import By
 
-link1 = "http://suninjuly.github.io/registration2.html"
-link2 = "http://suninjuly.github.io/registration2.html"
-browser = webdriver.Chrome()
 
-
-class TestReg(unittest.TestCase):
-
-    # Ваш код, который заполняет обязательные поля
-    def testing(self, link):
+class TestAbs(unittest.TestCase):
+    def test_abs1(self):
+        link = "http://suninjuly.github.io/registration2.html"
+        browser = webdriver.Chrome()
         browser.get(link)
-        if browser.current_url == None: return "bad"
+
+        # Ваш код, который заполняет обязательные поля
         input1 = browser.find_element(By.CSS_SELECTOR, "div.first_block .first")
         input1.send_keys("Ivan")
         input2 = browser.find_element(By.CSS_SELECTOR, "div.first_block .second")
@@ -40,17 +37,13 @@ class TestReg(unittest.TestCase):
         welcome_text = welcome_text_elt.text
 
         # с помощью assert проверяем, что ожидаемый текст совпадает с текстом на странице сайта
-        unittest.TestCase.assertEqual("Congratulations! You have successfully registered!", welcome_text)
+        self.assertEqual("Congratulations! You have successfully registered!", welcome_text, "missing edit")
 
-        if __name__ == "__main__":
-            unittest.main()
+        time.sleep(6)
+        # закрываем браузер после всех манипуляций
+        browser.quit()
 
+if __name__ == "__main__":
+    unittest.main()
+        # ожидание чтобы визуально оценить результаты прохождения скрипта
 
-test1 = TestReg.testing(link1)
-
-test2 = TestReg.testing(link2)
-
-# ожидание чтобы визуально оценить результаты прохождения скрипта
-time.sleep(10)
-# закрываем браузер после всех манипуляций
-browser.quit()
